@@ -106,7 +106,7 @@ const sampleListings = [
     {
         title: "Historic Brownstone in Boston",
         description: "Step back in time in this elegant brownstone in Boston's historic district. A perfect blend of old-world charm and modern comfort.",
-        image: "https://images.unsplash.com/photo-1620105147120-58171c8a11d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHRyYXZlbCUyMGJyb3duc3RvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+        image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FtcGluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
         price: 2200,
         location: "Boston",
         country: "United States",
