@@ -39,7 +39,6 @@ app.get("/listings", async (req, res) => {
 app.get("/listings/:id", async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
-    console.log(listing);
     res.render("listings/show.ejs", { listing });
 });
 
@@ -53,8 +52,8 @@ app.get("/listings/:id/edit",async(req,res)=>{
 //Update route
 app.put("/listings/:id", async (req, res) => {
     let { id } = req.params;
-    console.log(id);
-    await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    const hello=await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    console.log(hello);
     res.redirect("/listings");
 });
 
