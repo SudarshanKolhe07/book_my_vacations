@@ -3,14 +3,14 @@
   
 <body>
     <div class="col-8 offset-2 mt-3">
-    <h3>Listing Details!</h3>
+    <h3><%=listing.title%></h3>
     </div>
 
     <div class="col-6 offset-2">
     <div class="card">
         <img src="<%=listing.image%>" class="card-img-top show-img" alt="listing.image">
     <div class="card-body">
-      <p class="card-text"><b><%=listing.title%></b> <br>
+      <p class="card-text">
         <%=listing.description%> <br>
         &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> <br>
         <%=listing.location%> <br>
@@ -26,7 +26,24 @@
         Delete
        </button>
     </form>
-</div>
+    </div>
+    </div>
+
+    <div class="col-8 offset-2 mt-3">
+        <hr>
+        <h3>Leave a Review!</h3>
+        <form action="/listings/<%=listing.id%>/reviews" method="POST">
+            <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="range" min="1" max="5" name="review[rating]" id="rating">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comments</label>
+                <textarea name="review[comment]" id="comment" cols="10" rows="7" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-outline-dark mb-3">Submit</button>
+        </form>
+    </div>
+
 </body>
-</div>
 </div>
