@@ -7,7 +7,7 @@ const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
-const {listingScema}=require("./Scema.js");
+const {listingSchema,reviewSchema}=require("./Scema.js");
 const Review = require("./models/review.js");
 
 const MongoUrl = "mongodb://127.0.0.1:27017/wanderlust";
@@ -29,7 +29,16 @@ app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"public")));
 
 const validateListing = (req,res,next)=>{
-    let error=listingScema.validate(req.body);
+    let error=listingSchema.validate(req.body);
+    if(error){
+        throw new ExpressError(400,error);
+    }else{
+        next();
+    }
+};
+
+const validateReview = (req,res,next)=>{
+    let error=reviewSchema.validate(req.body);
     if(error){
         throw new ExpressError(400,error);
     }else{
@@ -51,7 +60,7 @@ app.get("/listings", wrapAsync (async (req, res) => {
 //show route
 app.get("/listings/:id",wrapAsync( async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
 }));
 
@@ -81,7 +90,7 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
 }));
 
 //create route
-app.post("/listings",wrapAsync( async (req,res,next) => {
+app.post("/listings",validateReview,wrapAsync( async (req,res,next) => {
     const result=listingScema.validate(req.body);
     console.log(result);
     const newListing=new Listing(req.body.listing);
@@ -95,12 +104,10 @@ app.post("/listings/:id/reviews",async(req,res)=>{
     let newReview=new Review(req.body.review);
 
     listing.reviews.push(newReview);
-
+    
     await newReview.save();
     await listing.save();
-
-    console.log("Review Saved");
-    res.send("Review added");
+    res.redirect(`/listings/${listing.id}`);
 });
 
 
