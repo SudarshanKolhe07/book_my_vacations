@@ -3,19 +3,19 @@ const mogoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const reviewSchma=new Schema({
-    Comment:String,
-    Rating:{
+const reviewSchema=new Schema({
+    comment:String,
+    rating:{
         type:Number,
         min:1,
         max:5,
     },
-    cratedAt:{
+    createdAt:{
         type:Date,
         default:Date.now(),
     },
 });
 
-const Review = mongoose.model("Review", reviewSchma);
+const Review = mongoose.model("Review", reviewSchema);
 module.exports = Review;
 
